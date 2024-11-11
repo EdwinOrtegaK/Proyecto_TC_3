@@ -18,9 +18,9 @@
     "initial_state": "q0_encrypt",
     "accept_states": ["q_accept_encrypt", "q_accept_decrypt"],
     "transitions": [
-        ["q0_encrypt", "n", "q_read_encrypt", "n", "R"],
+        ["q0_encrypt", "*", "q_read_encrypt", "*", "R"],
 
-        ["q0_decrypt", "n", "q_read_decrypt", "n", "R"],
+        ["q0_decrypt", "*", "q_read_decrypt", "*", "R"],
 
         ["q_read_encrypt", "A", "q_shift_encrypt", "A", "R"],
         ["q_read_encrypt", "B", "q_shift_encrypt", "B", "R"],
