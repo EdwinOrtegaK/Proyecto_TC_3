@@ -1,62 +1,68 @@
 import json
 
 def load_turing_machine_config(file_path):
+    with open(file_path, 'r') as file:
+        return json.load(file)
+
+def initialize_tape(shift, text):
+    # Coloca el desplazamiento (n) al inicio, seguido del texto a procesar, luego el espacio final.
+    return list(str(shift) + ' ' + text + ' ')
+
+def apply_caesar_shift(char, shift, mode="encrypt"):
     """
-    Carga la configuración de la máquina de Turing desde un archivo JSON.
+    Aplica el desplazamiento César a una letra. Si `mode` es 'encrypt', suma el desplazamiento.
+    Si `mode` es 'decrypt', lo resta.
+    """
+    if char == " ":
+        return char
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    idx = alphabet.index(char)
+    if mode == "encrypt":
+        new_idx = (idx + shift) % 26
+    else:
+        new_idx = (idx - shift) % 26
+    return alphabet[new_idx]
+
+def simulate_turing_machine(config, tape, initial_state, shift, mode="encrypt"):
+    # Inicializamos la máquina en el estado inicial
+    state = initial_state
+    head_position = 2  # Posición inicial después del número de desplazamiento
+    text_mode = "encrypt" if mode == "encrypt" else "decrypt"
     
-    Args:
-        file_path (str): Ruta al archivo JSON que contiene la configuración de la máquina.
+    # Ejecutar las transiciones hasta alcanzar un estado de aceptación
+    while state not in config['accept_states']:
+        symbol = tape[head_position]
+        
+        if state == "q_read_encrypt" or state == "q_read_decrypt":
+            new_symbol = apply_caesar_shift(symbol, shift, mode=text_mode)
+            tape[head_position] = new_symbol
+            state = "q_shift_encrypt" if mode == "encrypt" else "q_shift_decrypt"
+            head_position += 1
+        elif state == "q_shift_encrypt" or state == "q_shift_decrypt":
+            # Verifica si hemos alcanzado el espacio final para aceptar la operación
+            if tape[head_position] == " ":
+                state = "q_accept_encrypt" if mode == "encrypt" else "q_accept_decrypt"
+            else:
+                state = "q_read_encrypt" if mode == "encrypt" else "q_read_decrypt"
 
-    Returns:
-        dict: Diccionario con la estructura de la máquina de Turing, o None si hay un error.
-    """
-    try:
-        with open(file_path, 'r') as file:
-            config = json.load(file)
-        if validate_turing_machine_config(config):
-            return config
-        else:
-            print("El archivo JSON no contiene la estructura requerida.")
-            return None
-    except FileNotFoundError:
-        print("El archivo especificado no fue encontrado.")
-    except json.JSONDecodeError:
-        print("Error al decodificar el archivo JSON. Verifica el formato.")
-    return None
+    return ''.join(tape[2:]).strip()  # Convertir la cinta a cadena y eliminar espacios en los extremos
 
-def validate_turing_machine_config(config):
-    """
-    Valida que el diccionario de configuración tenga las claves requeridas para la máquina de Turing.
-
-    Args:
-        config (dict): Diccionario con la configuración de la máquina de Turing.
-
-    Returns:
-        bool: True si la configuración es válida, False en caso contrario.
-    """
-    required_keys = {"states", "input_alphabet", "tape_alphabet", "initial_state", "accept_states", "transitions"}
-    if not all(key in config for key in required_keys):
-        print("Faltan algunas claves esenciales en el archivo JSON.")
-        return False
-    # Validar que los elementos principales estén correctamente estructurados
-    if not isinstance(config["states"], list) or not isinstance(config["input_alphabet"], list) or not isinstance(config["tape_alphabet"], list):
-        print("Error en los formatos de 'states', 'input_alphabet' o 'tape_alphabet'. Deben ser listas.")
-        return False
-    if not isinstance(config["initial_state"], str):
-        print("Error: 'initial_state' debe ser una cadena.")
-        return False
-    if not isinstance(config["accept_states"], list):
-        print("Error: 'accept_states' debe ser una lista.")
-        return False
-    if not isinstance(config["transitions"], list):
-        print("Error: 'transitions' debe ser una lista de transiciones.")
-        return False
-    return True
-
-# Ejemplo de uso
-config_path = 'machine_structure.json'
+# Configuración del JSON y la prueba
+config_path = 'machine_structure.json'  # Cambia esto a la ruta correcta de tu JSON
 config = load_turing_machine_config(config_path)
-if config:
-    print("Configuración cargada correctamente.")
-else:
-    print("Error al cargar la configuración.")
+
+# Parámetros de entrada
+shift = 3  # Desplazamiento dinámico
+text = "ROMA NO FUE CONSTRUIDA EN UN DIA"
+tape = initialize_tape(shift, text)
+
+# Cifrar
+result_encrypt = simulate_turing_machine(config, tape, "q0_encrypt", shift, mode="encrypt")
+print("Resultado de cifrado:", result_encrypt)
+
+# Inicializar la cinta nuevamente con el texto cifrado
+tape = initialize_tape(shift, result_encrypt)
+
+# Decifrar
+result_decrypt = simulate_turing_machine(config, tape, "q0_decrypt", shift, mode="decrypt")
+print("Resultado de decifrado:", result_decrypt)
