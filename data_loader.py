@@ -18,18 +18,16 @@ def main():
     
 
 
-def text_to_stack(text: str): # signo - significa blank
-    stack = ['-','-']
+def text_to_stack(text: str):  # signo - significa blank
+    stack = []
     for t in text:
         stack.append(t)
     
-    stack = stack + ['-','-']
+    key = stack[0]  # Asumimos que la clave es el primer carácter de la cinta
     
-    key = stack[2]
-    
-    if stack[2] in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
-            key = ord(stack[2]) - 65
-            stack[2] = key
+    if stack[0] in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        key = ord(stack[0]) - 65
+        stack[0] = key
             
     return stack, key
 
@@ -92,24 +90,31 @@ state = initial_state
 
 accept_state_in_machine = False
 
-while start_pos < len(stack_text) and accept_state_in_machine == False:    
+while start_pos < len(stack_text) and not accept_state_in_machine:    
+    valid_transition = False  # Variable para verificar si existe una transición válida
     for transit in transition:
         if state == transit[0] and str(stack_text[start_pos]) == transit[1]:
             state = transit[2]
             if transit[4] == 'R':
                 stack_text[start_pos] = transit[3]
-                start_pos = start_pos + 1
-            if transit[4] == 'S':
+                start_pos += 1
+            elif transit[4] == 'S':
                 stack_text[start_pos] = transit[3]
-                start_pos = start_pos
-            if transit[4] == 'L':
+            elif transit[4] == 'L':
                 stack_text[start_pos] = transit[3]
-                start_pos = start_pos - 1    
+                start_pos -= 1
             
-    if state == accept_state[0]:
+            valid_transition = True  # Se encontró una transición válida
+            break  # Sal del ciclo para aplicar solo una transición por iteración
+
+    if not valid_transition:
+        print("Error: No se encontró una transición válida para el estado actual.")
+        break  # Detener el ciclo si no hay transiciones válidas
+    
+    if state in accept_state:
         accept_state_in_machine = True
 
     
     
 
-print(stack_text)
+print('Resultado:\n', ''.join([ch for ch in stack_text[2:] if ch not in ['-', '#']]))
