@@ -25,6 +25,14 @@ def text_to_stack(text: str):  # signo - significa blank
     
     key = stack[0]  # Asumimos que la clave es el primer carácter de la cinta
     
+    try:
+        valor = int(stack[1])
+        if isinstance(valor, int):
+            key = stack[0] + stack[1]
+    except:
+        True
+            
+    
     if stack[0] in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
         key = ord(stack[0]) - 65
         stack[0] = key
@@ -33,14 +41,37 @@ def text_to_stack(text: str):  # signo - significa blank
 
 
 def change_transitions(transitions, key, two_options):
+    already_added = True
     transit = []
     for trans in transitions:
         
-        if 'k' in trans[1]:
-            trans[1] = str(key)
+        if int(key) < 10:
         
-        if 'k' == trans[3]:
-            trans[3] = str(key)
+            if 'k' in trans[1]:
+                trans[1] = str(key)
+            
+            if 'k' == trans[3]:
+                trans[3] = str(key)
+        
+        if int(key) >= 10:
+            keyprev = list(key)
+            
+            contador = 0
+            
+            while contador < len(keyprev):
+                if 'k' in trans[1]:
+                    trans[1] = str(keyprev[0])
+            
+                if 'k' == trans[3]:
+                    trans[3] = str(keyprev[0])
+                
+                if contador >= 1 and already_added:
+                    transit.append( ["q_read_key",str(keyprev[contador]),"q_read_key","-","R"])
+                    already_added = False
+                    
+                contador = contador + 1
+                    
+                
         
         if '+ k' in trans[3]:
             valores = trans[3].split(' ')
@@ -82,9 +113,10 @@ accept_state = main_struct['accept_states']
 transition = main_struct['transitions']
 main_struct['transitions'] = change_transitions(transition, key, two_options)
 add_new_data('structure_with_key.json',main_struct)
+transition = main_struct['transitions']
 
 
-start_pos = 2
+start_pos = 0
 
 state = initial_state
 
