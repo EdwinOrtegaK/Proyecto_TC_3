@@ -134,7 +134,11 @@
         ],
         [
             "q_read_key",
+<<<<<<< HEAD
             "3",
+=======
+            "5",
+>>>>>>> 59e4d648f3d7f33718ca8978c6eb65ab8068c3f9
             "q_read_key",
             "-",
             "R"
@@ -150,34 +154,51 @@
             "q_read_encrypt",
             "A",
             "q_read_encrypt",
+<<<<<<< HEAD
             "D",
+=======
+            "V",
+>>>>>>> 59e4d648f3d7f33718ca8978c6eb65ab8068c3f9
             "R"
         ],
         [
             "q_read_encrypt",
             "B",
             "q_read_encrypt",
+<<<<<<< HEAD
             "E",
+=======
+            "W",
+>>>>>>> 59e4d648f3d7f33718ca8978c6eb65ab8068c3f9
             "R"
         ],
         [
             "q_read_encrypt",
             "C",
             "q_read_encrypt",
+<<<<<<< HEAD
             "F",
+=======
+            "X",
+>>>>>>> 59e4d648f3d7f33718ca8978c6eb65ab8068c3f9
             "R"
         ],
         [
             "q_read_encrypt",
             "D",
             "q_read_encrypt",
+<<<<<<< HEAD
             "G",
+=======
+            "Y",
+>>>>>>> 59e4d648f3d7f33718ca8978c6eb65ab8068c3f9
             "R"
         ],
         [
             "q_read_encrypt",
             "E",
             "q_read_encrypt",
+<<<<<<< HEAD
             "H",
             "R"
         ],
@@ -284,11 +305,14 @@
             "T",
             "q_read_encrypt",
             "W",
+=======
+            "Z",
+>>>>>>> 59e4d648f3d7f33718ca8978c6eb65ab8068c3f9
             "R"
         ],
         [
             "q_read_encrypt",
-            "U",
+            "F",
             "q_read_encrypt",
             "X",
             "R"
@@ -316,16 +340,150 @@
         ],
         [
             "q_read_encrypt",
+<<<<<<< HEAD
             "Y",
+=======
+            "G",
+>>>>>>> 59e4d648f3d7f33718ca8978c6eb65ab8068c3f9
             "q_read_encrypt",
             "B",
             "R"
         ],
         [
             "q_read_encrypt",
+<<<<<<< HEAD
             "Z",
+=======
+            "H",
             "q_read_encrypt",
             "C",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "I",
+            "q_read_encrypt",
+            "D",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "J",
+            "q_read_encrypt",
+            "E",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "K",
+>>>>>>> 59e4d648f3d7f33718ca8978c6eb65ab8068c3f9
+            "q_read_encrypt",
+            "C",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "L",
+            "q_read_encrypt",
+            "G",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "M",
+            "q_read_encrypt",
+            "H",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "N",
+            "q_read_encrypt",
+            "I",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "O",
+            "q_read_encrypt",
+            "J",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "P",
+            "q_read_encrypt",
+            "K",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "Q",
+            "q_read_encrypt",
+            "L",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "R",
+            "q_read_encrypt",
+            "M",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "S",
+            "q_read_encrypt",
+            "N",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "T",
+            "q_read_encrypt",
+            "O",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "U",
+            "q_read_encrypt",
+            "P",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "V",
+            "q_read_encrypt",
+            "Q",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "W",
+            "q_read_encrypt",
+            "R",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "X",
+            "q_read_encrypt",
+            "S",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "Y",
+            "q_read_encrypt",
+            "T",
+            "R"
+        ],
+        [
+            "q_read_encrypt",
+            "Z",
+            "q_read_encrypt",
+            "U",
             "R"
         ],
         [
